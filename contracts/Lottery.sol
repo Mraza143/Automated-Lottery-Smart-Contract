@@ -7,7 +7,7 @@ import "@chainlink/contracts/src/v0.8/VRFConsumerBaseV2.sol";
 import "@chainlink/contracts/src/v0.8/interfaces/KeeperCompatibleInterface.sol";
 import "hardhat/console.sol";
 
-error Lottery__UpkeepNotNeeded(uint256 currentBalance, uint256 numPlayers, uint256 raffleState);
+error Lottery__UpkeepNotNeeded(uint256 currentBalance, uint256 numPlayers, uint256 lotteryState);
 error Lottery__TransferFailed();
 error Lottery__SendMoreToEnterLottery();
 error Lottery__LotteryNotOpen();
@@ -64,9 +64,7 @@ contract Lottery is VRFConsumerBaseV2, KeeperCompatibleInterface {
         i_callbackGasLimit = callbackGasLimit;
     }
 
-    function enterRaffle() public payable {
-        // require(msg.value >= i_entranceFee, "Not enough value sent");
-        // require(s_raffleState == RaffleState.OPEN, "Raffle is not open");
+    function enterLottery() public payable {
         if (msg.value < i_entranceFee) {
             revert Lottery__SendMoreToEnterLottery();
         }
@@ -74,20 +72,10 @@ contract Lottery is VRFConsumerBaseV2, KeeperCompatibleInterface {
             revert Lottery__LotteryNotOpen();
         }
         s_players.push(payable(msg.sender));
-        // Emit an event when we update a dynamic array or mapping
-        // Named events with the function name reversed
+
         emit LotteryEnter(msg.sender);
     }
 
-    /**
-     * @dev This is the function that the Chainlink Keeper nodes call
-     * they look for `upkeepNeeded` to return True.
-     * the following should be true for this to return true:
-     * 1. The time interval has passed between raffle runs.
-     * 2. The lottery is open.
-     * 3. The contract has ETH.
-     * 4. Implicity, your subscription is funded with LINK.
-     */
     function checkUpkeep(
         bytes memory /* checkData */
     )
@@ -194,5 +182,9 @@ contract Lottery is VRFConsumerBaseV2, KeeperCompatibleInterface {
 
     function getNumberOfPlayers() public view returns (uint256) {
         return s_players.length;
+    }
+
+    function getVrfCoordinator() public view returns (VRFCoordinatorV2Interface) {
+        return i_vrfCoordinator;
     }
 }

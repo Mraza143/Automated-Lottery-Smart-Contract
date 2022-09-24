@@ -11,9 +11,9 @@ const networkConfig = {
         lotteryEntranceFee: "100000000000000000", // 0.1 ETH
         callbackGasLimit: "500000", // 500,000 gas
     },
-    4: {
+    5: {
         name: "goerli",
-        subscriptionId: "6926",
+        subscriptionId: "2053",
         gasLane: "0x79d3d8832d904592c0bf9818b621522c988bb8b0c05cdc3b15aea1b6e8db0c15", // 30 gwei
         keepersUpdateInterval: "30",
         lotteryEntranceFee: "100000000000000000", // 0.1 ETH
@@ -28,9 +28,14 @@ const networkConfig = {
 
 const developmentChains = ["hardhat", "localhost"]
 const VERIFICATION_BLOCK_CONFIRMATIONS = 6
+//F:\Ethereum\32  Hours\Next js Lottery Front end\lotteryfrontend\constants
+const frontEndContractsFile = "../nextjslotteryfrontend/lotteryfrontend/constants/contractAddresses.json"
+const frontEndAbiFile = "../nextjslotteryfrontend/lotteryfrontend/constants/abi.json"
 
 module.exports = {
     networkConfig,
     developmentChains,
     VERIFICATION_BLOCK_CONFIRMATIONS,
+    frontEndContractsFile,
+    frontEndAbiFile,
 }

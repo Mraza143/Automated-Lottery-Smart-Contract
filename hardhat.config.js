@@ -16,7 +16,7 @@ const PRIVATE_KEY = process.env.PRIVATE_KEY || "0x"
 
 // Your API key for Etherscan, obtain one at https://etherscan.io/
 const ETHERSCAN_API_KEY = process.env.ETHERSCAN_API_KEY || "Your etherscan API key"
-const REPORT_GAS = process.env.REPORT_GAS || false
+const REPORT_GAS = process.env.REPORT_GAS || true
 
 module.exports = {
     defaultNetwork: "hardhat",
@@ -46,7 +46,7 @@ module.exports = {
         currency: "USD",
         outputFile: "gas-report.txt",
         noColors: true,
-        // coinmarketcap: process.env.COINMARKETCAP_API_KEY,
+        coinmarketcap: process.env.COINMARKETCAP_API_KEY,
     },
     contractSizer: {
         runOnCompile: false,

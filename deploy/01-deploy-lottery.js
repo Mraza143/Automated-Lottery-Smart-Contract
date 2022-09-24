@@ -12,6 +12,8 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
     const { deploy, log } = deployments
     const { deployer } = await getNamedAccounts()
     const chainId = network.config.chainId
+    console.log('Chain id')
+    console.log(chainId)
     let vrfCoordinatorV2Address, subscriptionId, vrfCoordinatorV2Mock
 
     if (chainId == 31337) {
